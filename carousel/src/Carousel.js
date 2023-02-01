@@ -9,10 +9,16 @@ function Carousel(props) {
   const [cardIdx, setCardIdx] = useState(0);
   const card = props.cardData[cardIdx];
   const total = props.cardData.length;
-  const goForward = () => setCardIdx(cardIdx + 1);
+  // Bug Fixed: Fixed error where cards fail to reset after reaching end. Fixed with conditionals.
+  const goForward = () => {
+    if (cardIdx < total -1) setCardIdx(cardIdx + 1);
+    if (cardIdx >= total -1) setCardIdx(0);
+  }
+
+  // Bug Fixed: Fixed error where left arrow did the same thing as right arrow. Fixed by adding goBack.
   const goBack = () => {
     if (cardIdx === 0) setCardIdx(total - 1);
-    if (cardIdx > 0) return setCardIdx(cardIdx -1);
+    if (cardIdx > 0) setCardIdx(cardIdx -1);
   }
   return (
     <div className="Carousel">

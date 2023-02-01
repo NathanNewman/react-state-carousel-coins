@@ -27,6 +27,18 @@ it("works when you click on the right arrow", function() {
   // expect the second image to show, but not the first
   expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).not.toBeInTheDocument();
   expect(queryByAltText("Photo by Pratik Patel on Unsplash")).toBeInTheDocument();
+
+  fireEvent.click(rightArrow);
+
+  // expect the third image to show, but not the second
+  expect(queryByAltText("Photo by Pratik Patel on Unsplash")).not.toBeInTheDocument();
+  expect(queryByAltText("Photo by Josh Post on Unsplash")).toBeInTheDocument();
+
+  fireEvent.click(rightArrow);
+
+  // return to first image
+  expect(queryByAltText("Photo by Josh Post on Unsplash")).not.toBeInTheDocument();
+  expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).toBeInTheDocument();
 });
 
 it("works when you click on the left arrow", function() {
@@ -36,11 +48,23 @@ it("works when you click on the left arrow", function() {
   expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).toBeInTheDocument();
   expect(queryByAltText("Photo by Josh Post on Unsplash")).not.toBeInTheDocument();
 
-  // move forward in the carousel
+  // move backward in the carousel
   const leftArrow = queryByTestId("left-arrow");
   fireEvent.click(leftArrow);
 
-  // expect the second image to show, but not the first
+  // expect the third image to show, but not the first
   expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).not.toBeInTheDocument();
   expect(queryByAltText("Photo by Josh Post on Unsplash")).toBeInTheDocument();
+
+  fireEvent.click(leftArrow);
+
+  // expect the second image to show, but not the third
+  expect(queryByAltText("Photo by Josh Post on Unsplash")).not.toBeInTheDocument();
+  expect(queryByAltText("Photo by Pratik Patel on Unsplash")).toBeInTheDocument();
+
+  fireEvent.click(leftArrow);
+
+  // return to first image
+  expect(queryByAltText("Photo by Pratik Patel on Unsplash")).not.toBeInTheDocument();
+  expect(queryByAltText("Photo by Richard Pasquarella on Unsplash")).toBeInTheDocument();
 });
