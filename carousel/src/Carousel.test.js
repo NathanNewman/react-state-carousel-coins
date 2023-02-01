@@ -7,6 +7,12 @@ it("renders without crashing", () => {
   render(<Carousel />);
 });
 
+// snapshot
+test('it matches snapshot', () => {
+  const {asFragment } = render(<Carousel />);
+  expect(asFragment()).toMatchSnapshot();
+});
+
 it("works when you click on the right arrow", function() {
   const { queryByTestId, queryByAltText } = render(<Carousel />);
 
